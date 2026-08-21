@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "sql_demo",
+    "typist"
+]
+# dependency resolver
+# edition = "2021" (default v2)
+resolver = "2"
