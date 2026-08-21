@@ -41,7 +41,7 @@ fn typist(s: &str, t: u64) {
 
 /*
 ```shell
-cargo run ./test.txt 25
+cargo run ./xxx 25
 ```
 */
 fn main() -> Result<(), Error> {
@@ -67,7 +67,7 @@ fn main() -> Result<(), Error> {
     let text: &str =
         std::str::from_utf8(&content).map_err(|e| Error::new(ErrorKind::InvalidData, e))?;
 
-    print!("\x1b[3J\x1b[2J\x1b[H");
+    println!("\x1b[3J\x1b[2J\x1b[H");
     typist(text, time);
     Ok(())
 }
