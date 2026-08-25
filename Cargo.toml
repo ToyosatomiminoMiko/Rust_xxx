@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "graphics_utils",
     "sql_demo",
     "typist"
 ]
