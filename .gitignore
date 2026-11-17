@@ -17,6 +17,11 @@ prompt.md
 # Contains mutation testing data
 **/mutants.out*/
 
+# gbt9704: 本地临时文件与按需下载的字体(体积/授权原因不入库)
+gbt9704/.scratch/
+gbt9704/fonts/
+**/.scratch/
+
 # RustRover
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

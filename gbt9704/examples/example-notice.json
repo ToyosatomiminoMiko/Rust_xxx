@@ -1,0 +1,39 @@
+{
+  "doc_kind": "通知",
+  "format": "standard",
+  "copy_number": "000001",
+  "secrecy": { "level": "机密", "term": "1年" },
+  "urgency": "特急",
+  "issuer": { "names": ["国务院办公厅"], "mark": "国务院办公厅文件" },
+  "doc_number": { "agency": "国办发", "year": 2012, "serial": 1 },
+  "signers": [],
+  "title": "国务院办公厅关于进一步加强公文格式规范工作的通知",
+  "addressees": ["各省、自治区、直辖市人民政府，国务院各部委、各直属机构"],
+  "body": [
+    { "text": "为进一步加强公文格式规范工作，经国务院同意，现就有关事项通知如下：" },
+    { "level": 1, "num": "一、", "text": "充分认识公文格式规范的重要意义" },
+    { "text": "公文格式是公文处理工作的重要组成部分，直接关系公文质量和机关形象。" },
+    { "level": 2, "num": "（一）", "text": "统一思想认识" },
+    { "text": "各地区、各部门要高度重视公文格式规范化工作。" },
+    { "level": 3, "num": "1.", "text": "加强组织领导" },
+    { "text": "明确责任分工，抓好工作落实。" },
+    { "level": 4, "num": "（1）", "text": "完善工作机制" },
+    { "text": "建立健全公文格式审核机制。" },
+    { "level": 1, "num": "二、", "text": "严格执行公文格式标准" },
+    { "text": "严格按照 GB/T 9704-2012 执行。" }
+  ],
+  "attachment_notes": [{ "serial": 1, "name": "公文格式自查表" }],
+  "signature": {
+    "date": "2012-07-01",
+    "mode": "with_seal",
+    "issuer_names": [],
+    "seals": [{ "image": "assets/seal.png", "issuer": "国务院办公厅" }]
+  },
+  "note": "（此件公开发布）",
+  "attachments": [
+    { "serial": 1, "title": "公文格式自查表", "paragraphs": ["一、版心尺寸是否符合要求。", "二、字体字号是否符合要求。"] }
+  ],
+  "cc": ["中共中央办公厅"],
+  "printing": { "issuer": "国务院办公厅秘书局", "date": "2012-07-02" },
+  "page": { "enabled": true }
+}

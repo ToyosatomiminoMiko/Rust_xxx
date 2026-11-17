@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  最小合法 AKN 3.1 示例（GB/T 9704 项目用）
+  命名空间: http://docs.oasis-open.org/legaldocml/ns/akn/3.1
+  根元素   : akomaNtoso @version="3.1"
+  文档类型 : doc（通用文档，非 act/bill/judgment）
+  扩展命名空间: urn:gbt9704:ext:1.0 仅允许出现在 <proprietary> / <presentation> 的 xs:any 中
+  校验命令见 docs/akoma-ntoso-v2.0.md（在 gbt9704/examples/akn 目录下执行）
+-->
+<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.1"
+            xmlns:gbt="urn:gbt9704:ext:1.0"
+            version="3.1">
+  <doc name="gbt9704-document">
+    <meta>
+      <identification source="#gbt9704">
+        <FRBRWork>
+          <FRBRthis value="/akn/cn/doc/gbt9704/2026-11-07/main"/>
+          <FRBRuri value="/akn/cn/doc/gbt9704/2026-11-07"/>
+          <FRBRalias name="officialName" value="GB/T 9704 公文样例"/>
+          <FRBRdate date="2026-11-07" name="generation"/>
+          <FRBRauthor href="#gbt9704"/>
+          <FRBRcountry value="cn"/>
+          <FRBRnumber value="GB/T 9704-2012"/>
+          <FRBRname value="党政机关公文格式"/>
+          <FRBRprescriptive value="true"/>
+        </FRBRWork>
+        <FRBRExpression>
+          <FRBRthis value="/akn/cn/doc/gbt9704/2026-11-07/main@"/>
+          <FRBRuri value="/akn/cn/doc/gbt9704/2026-11-07/main@"/>
+          <FRBRdate date="2026-11-07" name="generation"/>
+          <FRBRauthor href="#gbt9704"/>
+          <FRBRlanguage language="zho"/>
+        </FRBRExpression>
+        <FRBRManifestation>
+          <FRBRthis value="/akn/cn/doc/gbt9704/2026-11-07/main.xml"/>
+          <FRBRuri value="/akn/cn/doc/gbt9704/2026-11-07/main.xml"/>
+          <FRBRdate date="2026-11-07" name="generation"/>
+          <FRBRauthor href="#gbt9704"/>
+          <FRBRformat value="application/xml"/>
+        </FRBRManifestation>
+      </identification>
+      <classification source="#gbt9704">
+        <keyword value="公文" dictionary="#gbt9704-dictionary"/>
+        <keyword value="GB/T 9704" dictionary="#gbt9704-dictionary"/>
+      </classification>
+      <proprietary source="#gbt9704">
+        <!-- GB/T 9704 版式参数：AKN 无原生对应，只能放在 proprietary/presentation 的 xs:any 扩展里 -->
+        <gbt:layout gbt:standard="GB/T 9704-2012" gbt:paper="A4" gbt:marginTopMm="37"
+                    gbt:marginBottomMm="35" gbt:marginLeftMm="28" gbt:marginRightMm="26"/>
+        <gbt:seal gbt:required="true" gbt:position="成文日期右空四字"/>
+      </proprietary>
+      <presentation source="#gbt9704">
+        <gbt:cover gbt:redHeaderLine="true"/>
+      </presentation>
+    </meta>
+
+    <preface>
+      <p><docType>公文</docType></p>
+      <p><docTitle>关于×××的通知</docTitle></p>
+      <p><docNumber>×政发〔2026〕1号</docNumber></p>
+      <p><docDate date="2026-11-07">2026年11月7日</docDate></p>
+      <p><docJurisdiction>中华人民共和国</docJurisdiction></p>
+      <p><docStatus>正式</docStatus></p>
+    </preface>
+
+    <mainBody>
+      <p>各有关单位：</p>
+      <p>现将有关事项通知如下。</p>
+      <p>一、总体要求。</p>
+      <p>二、组织实施。</p>
+    </mainBody>
+
+    <conclusions>
+      <p><signature>××市人民政府</signature></p>
+      <p><docDate date="2026-11-07">2026年11月7日</docDate></p>
+    </conclusions>
+
+    <attachments>
+      <attachment eId="att-1">
+        <doc name="annex-1">
+          <meta>
+            <identification source="#gbt9704">
+              <FRBRWork>
+                <FRBRthis value="/akn/cn/doc/gbt9704/2026-11-07/annex-1/main"/>
+                <FRBRuri value="/akn/cn/doc/gbt9704/2026-11-07/annex-1"/>
+                <FRBRdate date="2026-11-07" name="generation"/>
+                <FRBRauthor href="#gbt9704"/>
+                <FRBRcountry value="cn"/>
+              </FRBRWork>
+              <FRBRExpression>
+                <FRBRthis value="/akn/cn/doc/gbt9704/2026-11-07/annex-1/main@"/>
+                <FRBRuri value="/akn/cn/doc/gbt9704/2026-11-07/annex-1/main@"/>
+                <FRBRdate date="2026-11-07" name="generation"/>
+                <FRBRauthor href="#gbt9704"/>
+                <FRBRlanguage language="zho"/>
+              </FRBRExpression>
+              <FRBRManifestation>
+                <FRBRthis value="/akn/cn/doc/gbt9704/2026-11-07/annex-1/main.xml"/>
+                <FRBRuri value="/akn/cn/doc/gbt9704/2026-11-07/annex-1/main.xml"/>
+                <FRBRdate date="2026-11-07" name="generation"/>
+                <FRBRauthor href="#gbt9704"/>
+              </FRBRManifestation>
+            </identification>
+          </meta>
+          <mainBody>
+            <p>附件正文。</p>
+          </mainBody>
+        </doc>
+      </attachment>
+    </attachments>
+  </doc>
+</akomaNtoso>

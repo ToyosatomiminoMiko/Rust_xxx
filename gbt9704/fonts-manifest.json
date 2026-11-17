@@ -1,0 +1,1167 @@
+{
+  "schema_version": 1,
+  "standard": "GB/T 9704-2012",
+  "standard_title": "党政机关公文格式",
+  "generated_at": "2026-11-07",
+  "generated_by": "gbt9704/scripts/fetch-fonts.sh + .scratch/analyze_fonts.py + .scratch/gen_manifest.py",
+  "documentation": "gbt9704/docs/fonts.md",
+  "units": {
+    "font_size": "pt",
+    "length": "mm",
+    "mm_in_pt": 2.834645669
+  },
+  "font_size_map": {
+    "2号": 22.0,
+    "3号": 16.0,
+    "4号": 14.0
+  },
+  "page_grid": {
+    "paper": "A4 (210mm x 297mm)",
+    "text_area_mm": {
+      "width": 156,
+      "height": 225
+    },
+    "lines_per_page": 22,
+    "chars_per_line": 28,
+    "pitch_pt": {
+      "x": 15.7929,
+      "y": 28.9907,
+      "note": "= 版心宽/28 与 版心高/22；用于每字步进与行距"
+    },
+    "line_unit_definition_pt": 30.0,
+    "line_unit_note": "术语 3.2：一行 = 一个汉字高度 + 3 号汉字高度的 7/8 = 16 + 14 = 30pt，仅用于“空一行/空二行”等垂直间距，不等于 22 行网格的 28.99pt 行距。",
+    "mismatch_note": "3 号字 16pt 全角字宽 16pt，28 字 = 448pt = 158.03mm，比版心 156mm 宽 2.03mm；实现需用网格步进 15.793pt/字（Word 文档网格行为）或横向缩放 98.7%，不能既用 16pt 字宽又要求 28 字正好 156mm。"
+  },
+  "slot_names": [
+    "title",
+    "small_biaosong",
+    "body_fangsong",
+    "heiti",
+    "kaiti",
+    "song",
+    "page_number",
+    "issuer_mark",
+    "record"
+  ],
+  "slot_aliases": {
+    "body": "body_fangsong",
+    "biaosong": "small_biaosong",
+    "fangsong": "body_fangsong"
+  },
+  "slots": {
+    "title": {
+      "standard_requirement": "一般用 2 号小标宋体字",
+      "clause": "7.3.1",
+      "size_pt": 22,
+      "color": "black",
+      "color_hex": "#000000",
+      "usage": "公文标题（红色分隔线下空二行，居中，梯形/菱形排列）",
+      "preferred_open_font": "NotoSerifCJKsc-Bold.otf",
+      "fallback_open_fonts": [
+        "FandolSong-Bold.otf"
+      ],
+      "user_supplied_fonts": [
+        "方正小标宋简体",
+        "FZXiaoBiaoSong-B05S",
+        "方正小标宋_GBK"
+      ],
+      "must_embed": true,
+      "notes": "无开源“小标宋”等价字体；Noto Serif CJK SC Bold 为笔画最接近的近似（宋体加粗骨架）。严格合规请自备方正小标宋简体。"
+    },
+    "small_biaosong": {
+      "standard_requirement": "小标宋体字（标题 2 号；发文机关标志/信函标志/命令(令)标志/纪要标志“推荐使用”）",
+      "clause": "7.2.4, 7.3.1, 10.1, 10.2, 10.3",
+      "size_pt": null,
+      "color": "black_or_red",
+      "color_hex": "#000000 / #FF0000",
+      "usage": "字族别名槽位：title 与 issuer_mark 共用的小标宋体字族；本身不是独立区域",
+      "preferred_open_font": "NotoSerifCJKsc-Bold.otf",
+      "fallback_open_fonts": [
+        "FandolSong-Bold.otf"
+      ],
+      "user_supplied_fonts": [
+        "方正小标宋简体",
+        "FZXiaoBiaoSong-B05S",
+        "方正小标宋_GBK"
+      ],
+      "must_embed": true,
+      "notes": "标准对“小标宋”只有字形风格要求，没有指定唯一字库；开源界无等价字族，只能近似。"
+    },
+    "body_fangsong": {
+      "standard_requirement": "如无特殊说明，公文格式各要素一般用 3 号仿宋体字",
+      "clause": "5.2.2, 7.3.3",
+      "size_pt": 16,
+      "color": "black",
+      "color_hex": "#000000",
+      "usage": "正文、主送机关、发文机关署名、成文日期、附注、附件说明等一般要素",
+      "preferred_open_font": "FandolFang-Regular.otf",
+      "fallback_open_fonts": [
+        "ZhuqueFangsong-Regular.ttf",
+        "NotoSerifCJKsc-Regular.otf"
+      ],
+      "user_supplied_fonts": [
+        "仿宋_GB2312",
+        "FangSong_GB2312",
+        "仿宋",
+        "FangSong",
+        "SimFang"
+      ],
+      "must_embed": true,
+      "notes": "FandolFang 属现代仿宋骨架，观感更接近仿宋_GB2312（GB2312 全覆盖，GPL 仅限本地使用）；朱雀仿宋 OFL 可分发但为风格化技术预览（GBK 52.66%，缺全角数字）；缺字回退 Noto Serif CJK SC。"
+    },
+    "heiti": {
+      "standard_requirement": "密级和保密期限、紧急程度、一级标题、附件标注（“附件”二字及顺序号）用 3 号黑体字；“出席”二字 3 号黑体",
+      "clause": "7.2.2, 7.2.3, 7.3.3, 7.3.7, 10.3",
+      "size_pt": 16,
+      "color": "black",
+      "color_hex": "#000000",
+      "usage": "密级/保密期限、紧急程度、正文一级标题、附件页“附件”标注、纪要出席人员“出席”二字",
+      "preferred_open_font": "NotoSansCJKsc-Regular.otf",
+      "fallback_open_fonts": [
+        "FandolHei-Regular.otf"
+      ],
+      "user_supplied_fonts": [
+        "黑体",
+        "SimHei",
+        "中易黑体"
+      ],
+      "must_embed": true,
+      "notes": "Noto Sans CJK SC 为黑体（无衬线）观感，GBK 全覆盖；注意标准要求的是“黑体”，不是加粗宋体。"
+    },
+    "kaiti": {
+      "standard_requirement": "签发人姓名用 3 号楷体字；第二层标题用楷体字",
+      "clause": "7.2.6, 7.3.3",
+      "size_pt": 16,
+      "color": "black",
+      "color_hex": "#000000",
+      "usage": "签发人姓名（“签发人”三字本身用仿宋）、正文第二层标题（如“(一)”）",
+      "preferred_open_font": "LXGWWenKai-Regular.ttf",
+      "fallback_open_fonts": [
+        "FandolKai-Regular.otf",
+        "NotoSerifCJKsc-Regular.otf"
+      ],
+      "user_supplied_fonts": [
+        "楷体_GB2312",
+        "KaiTi_GB2312",
+        "楷体",
+        "KaiTi",
+        "SimKai"
+      ],
+      "must_embed": true,
+      "notes": "霞鹜文楷源自 Fontworks Klee One，少量字形保留日式写法，追求严格中易楷体字形时用 FandolKai 或用户自备楷体_GB2312。"
+    },
+    "song": {
+      "standard_requirement": "标准未单列“宋体”槽位；用于页码（4 号半角宋体）与缺字回退，默认 3 号宋体",
+      "clause": "7.5（页码用宋体）",
+      "size_pt": 16,
+      "color": "black",
+      "color_hex": "#000000",
+      "usage": "通用宋体/缺字回退（非独立标准区域）",
+      "preferred_open_font": "NotoSerifCJKsc-Regular.otf",
+      "fallback_open_fonts": [
+        "FandolSong-Regular.otf"
+      ],
+      "user_supplied_fonts": [
+        "宋体",
+        "SimSun",
+        "中易宋体"
+      ],
+      "must_embed": true,
+      "notes": "回退用槽位；GBK 全覆盖，GB18030 扩展区仍可能缺字，见 missing_glyph_fallback。"
+    },
+    "page_number": {
+      "standard_requirement": "一般用 4 号半角宋体阿拉伯数字",
+      "clause": "7.5",
+      "size_pt": 14,
+      "color": "black",
+      "color_hex": "#000000",
+      "usage": "页码（版心下边缘之下，数字左右各一条一字线；单页码居右空一字，双页码居左空一字）",
+      "preferred_open_font": "NotoSerifCJKsc-Regular.otf",
+      "fallback_open_fonts": [
+        "FandolSong-Regular.otf"
+      ],
+      "user_supplied_fonts": [
+        "宋体",
+        "SimSun"
+      ],
+      "must_embed": true,
+      "notes": "必须使用半角数字 U+0030–U+0039（不是全角０–９）；所测字体半角数字均 10/10 覆盖。"
+    },
+    "issuer_mark": {
+      "standard_requirement": "推荐使用小标宋体字，颜色为红色（标准未规定字号）",
+      "clause": "7.2.4；信函/命令(令)/纪要见 10.1, 10.2, 10.3",
+      "size_pt": null,
+      "color": "red",
+      "color_hex": "#FF0000",
+      "usage": "发文机关标志/信函标志/命令(令)标志/纪要标志（居中，上边缘距版心上边缘 35mm；信函 30mm；命令(令) 20mm；纪要 35mm）",
+      "preferred_open_font": "NotoSerifCJKsc-Bold.otf",
+      "fallback_open_fonts": [
+        "FandolSong-Bold.otf"
+      ],
+      "user_supplied_fonts": [
+        "方正小标宋简体",
+        "FZXiaoBiaoSong-B05S"
+      ],
+      "must_embed": true,
+      "notes": "标准未给字号；实现建议：按机关名称长度自适应，单行宽度不超过版心 156mm，字号范围建议 22–48pt（默认 36pt，按实际测量收缩）。红色印刷按 6.2 要求 CMYK M80/Y80。"
+    },
+    "record": {
+      "standard_requirement": "抄送机关用 4 号仿宋体字；印发机关和印发日期用 4 号仿宋体字",
+      "clause": "7.4.2, 7.4.3",
+      "size_pt": 14,
+      "color": "black",
+      "color_hex": "#000000",
+      "usage": "版记：抄送机关、印发机关、印发日期",
+      "preferred_open_font": "FandolFang-Regular.otf",
+      "fallback_open_fonts": [
+        "ZhuqueFangsong-Regular.ttf",
+        "NotoSerifCJKsc-Regular.otf"
+      ],
+      "user_supplied_fonts": [
+        "仿宋_GB2312",
+        "FangSong_GB2312",
+        "仿宋",
+        "FangSong"
+      ],
+      "must_embed": true,
+      "notes": "与 body_fangsong 共用字体文件（4 号=14pt）。"
+    }
+  },
+  "graphic_slots": {
+    "seal": {
+      "kind": "graphics（不是字体）",
+      "standard_requirement": "印章用红色，不得出现空白印章；端正、居中下压发文机关署名和成文日期，署名与日期居印章中心偏下位置；印章顶端上距正文（或附件说明）一行之内",
+      "clause": "7.3.5.1",
+      "implementation": "阶段 2 用 SVG（首选，矢量）或 600dpi PNG（带 alpha）；纯红 #FF0000 或印刷 CMYK M80/Y80；按实际印章规格（常见直径 40/42mm）定位到版心坐标。",
+      "notes": "印章是图形资源，禁止用字体字形伪造。"
+    },
+    "signature_mark": {
+      "kind": "graphics（不是字体）",
+      "standard_requirement": "签发人签名章一般用红色；左空二字标注签发人职务，以签名章为准上下居中排布",
+      "clause": "7.3.5.3",
+      "implementation": "同印章：SVG/PNG、红色、按行距与右空四字规则定位。",
+      "notes": "签名章也是图形资源。"
+    }
+  },
+  "user_supplied_commercial_fonts": {
+    "方正小标宋简体": {
+      "postscript_names": [
+        "FZXiaoBiaoSong-B05S",
+        "FZXiaoBiaoSong-B05"
+      ],
+      "used_by_slots": [
+        "title",
+        "small_biaosong",
+        "issuer_mark"
+      ],
+      "license": "北大方正商业字体；不可随项目再分发；用户本机安装后由生成器优先探测使用",
+      "note": "严格符合“2 号小标宋”以及公文标题观感的事实标准字体。"
+    },
+    "仿宋_GB2312": {
+      "postscript_names": [
+        "FangSong_GB2312"
+      ],
+      "used_by_slots": [
+        "body_fangsong",
+        "record"
+      ],
+      "license": "中易/微软 Windows 系统字体（GB2312 版），再分发受限；用户自备",
+      "note": "GB2312 仅 6763 汉字，GB18030 生僻字需回退。"
+    },
+    "楷体_GB2312": {
+      "postscript_names": [
+        "KaiTi_GB2312"
+      ],
+      "used_by_slots": [
+        "kaiti"
+      ],
+      "license": "中易/微软 Windows 系统字体（GB2312 版），再分发受限；用户自备",
+      "note": "少量 GB18030 生僻字需回退。"
+    },
+    "黑体": {
+      "postscript_names": [
+        "SimHei"
+      ],
+      "used_by_slots": [
+        "heiti"
+      ],
+      "license": "中易/微软 Windows 系统字体，再分发受限；用户自备"
+    },
+    "宋体": {
+      "postscript_names": [
+        "SimSun"
+      ],
+      "used_by_slots": [
+        "song",
+        "page_number"
+      ],
+      "license": "中易/微软 Windows 系统字体，再分发受限；用户自备"
+    }
+  },
+  "font_resolution_order": [
+    "1. 用户在配置中指定的字体文件（最高优先级）",
+    "2. 本清单 preferred_open_font",
+    "3. 本清单 fallback_open_fonts（按顺序逐字回退）",
+    "4. 系统 fontconfig 结果（fc-match）",
+    "5. 明确报错并提示安装字体（禁止静默丢弃字符）"
+  ],
+  "fallback_policy": {
+    "per_glyph": true,
+    "note": "CJK 逐字回退：首选字体缺字时按 fallback_open_fonts 顺序找字，仍缺则用系统字体；绝不输出豆腐块而不报警。",
+    "gb18030_gap": "所测开源字体对 GB18030 扩展区（4 字节区）覆盖不足（最好 22/32 样本），公文出现生僻字时必须依赖用户自备的全覆盖字体（如方正字库 GB18030 版）或系统字体。"
+  },
+  "license_summary": {
+    "OFL-1.1": [
+      "Noto Sans CJK SC",
+      "Noto Serif CJK SC",
+      "LXGW WenKai",
+      "Zhuque Fangsong"
+    ],
+    "GPL-3.0-or-later WITH GPL-font-exception": [
+      "Fandol Song/Hei/Kai/Fang"
+    ],
+    "commercial_not_redistributable": [
+      "方正小标宋简体",
+      "仿宋_GB2312",
+      "楷体_GB2312",
+      "黑体",
+      "宋体"
+    ],
+    "note": "标准指定字体均为商业/系统字体，不能随项目再分发；本项目只提供下载脚本 + 开源替代，用户自备商业字体时按其授权协议使用。"
+  },
+  "fonts": {
+    "FandolFang-Regular.otf": {
+      "file": "gbt9704/fonts/FandolFang-Regular.otf",
+      "family": "FandolFang",
+      "family_name_id1": "FandolFang R",
+      "postscript": "FandolFang-Regular",
+      "style": "Regular",
+      "version": "Version 1.300;PS 1;hotconv 1.0.81;makeotf.lib2.5.63406 DEVELOPMENT",
+      "fc_scan": "FandolFang,FandolFang R|Regular|FandolFang R|FandolFang-Regular|85196",
+      "bytes": 6961384,
+      "sha256": "d838ad32ce2244d8144f408c37fe71065aba6fbbc80759a4d2aa2033948d5bc9",
+      "license": "GPL-3.0-or-later WITH GPL-font-exception",
+      "license_short": "GPL-3.0-or-later + 字体嵌入例外",
+      "redistributable_with_project": false,
+      "redistribution_note": "CTAN README 声明 GPL + GPL font exception；嵌入生成的 PDF 无碍，但随项目再分发字体二进制需履行 GPL（提供源码），Debian 曾因此拒绝打包，故只作本地下载回退。",
+      "slot_roles": [
+        "body_fangsong",
+        "record"
+      ],
+      "upstream": {
+        "type": "ctan",
+        "package": "fandol",
+        "version": "1.300 (2015-07-18)",
+        "archive": "fandol.zip",
+        "archive_sha256": "9278f01b417ded5766d98c3937192a1a6a2c73a5e94a3493fdfc932b2a55005a",
+        "urls": [
+          "https://mirrors.sustech.edu.cn/CTAN/fonts/fandol.zip",
+          "https://mirrors.ctan.org/fonts/fandol.zip"
+        ]
+      },
+      "outline_format": "CFF (CID-keyed OpenType OTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 10365,
+      "fsType": 8,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": true,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 7942,
+          "total": 20902,
+          "pct": 38.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 4,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 10273
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 500,
+        "latin_A": 739,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "FandolHei-Regular.otf": {
+      "file": "gbt9704/fonts/FandolHei-Regular.otf",
+      "family": "FandolHei",
+      "family_name_id1": "FandolHei",
+      "postscript": "FandolHei-Regular",
+      "style": "Regular",
+      "version": "Version 1.300;PS 1;hotconv 1.0.81;makeotf.lib2.5.63406 DEVELOPMENT",
+      "fc_scan": "FandolHei|Regular|FandolHei|FandolHei-Regular|85196",
+      "bytes": 5808908,
+      "sha256": "4afa97aa8751e0118617df88272b58d43691b5cffb7ea024c4580496e9f34d28",
+      "license": "GPL-3.0-or-later WITH GPL-font-exception",
+      "license_short": "GPL-3.0-or-later + 字体嵌入例外",
+      "redistributable_with_project": false,
+      "redistribution_note": "同 Fandol 系列：仅本地下载/嵌入 PDF，不再分发字体文件。",
+      "slot_roles": [
+        "heiti_fallback"
+      ],
+      "upstream": {
+        "type": "ctan",
+        "package": "fandol",
+        "version": "1.300 (2015-07-18)",
+        "archive": "fandol.zip",
+        "archive_sha256": "9278f01b417ded5766d98c3937192a1a6a2c73a5e94a3493fdfc932b2a55005a"
+      },
+      "outline_format": "CFF (CID-keyed OpenType OTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 10304,
+      "fsType": 8,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": true,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 7942,
+          "total": 20902,
+          "pct": 38.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 4,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 10212
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 500,
+        "latin_A": 667,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "FandolKai-Regular.otf": {
+      "file": "gbt9704/fonts/FandolKai-Regular.otf",
+      "family": "FandolKai",
+      "family_name_id1": "FandolKai",
+      "postscript": "FandolKai-Regular",
+      "style": "Regular",
+      "version": "Version 1.300;PS 1;hotconv 1.0.81;makeotf.lib2.5.63406 DEVELOPMENT",
+      "fc_scan": "FandolKai|Regular|FandolKai|FandolKai-Regular|85196",
+      "bytes": 7790552,
+      "sha256": "ea7e7fb4f9b3ac694a68d43946e04d21deed6e8c29a7c2d3081e1a4138f2f827",
+      "license": "GPL-3.0-or-later WITH GPL-font-exception",
+      "license_short": "GPL-3.0-or-later + 字体嵌入例外",
+      "redistributable_with_project": false,
+      "redistribution_note": "同 Fandol 系列：仅本地下载/嵌入 PDF，不再分发字体文件。",
+      "slot_roles": [
+        "kaiti_fallback"
+      ],
+      "upstream": {
+        "type": "ctan",
+        "package": "fandol",
+        "version": "1.300 (2015-07-18)",
+        "archive": "fandol.zip",
+        "archive_sha256": "9278f01b417ded5766d98c3937192a1a6a2c73a5e94a3493fdfc932b2a55005a"
+      },
+      "outline_format": "CFF (CID-keyed OpenType OTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 10361,
+      "fsType": 8,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": true,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 7942,
+          "total": 20902,
+          "pct": 38.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 4,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 10269
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 555,
+        "latin_A": 805,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "FandolSong-Bold.otf": {
+      "file": "gbt9704/fonts/FandolSong-Bold.otf",
+      "family": "FandolSong",
+      "family_name_id1": "FandolSong",
+      "postscript": "FandolSong-Bold",
+      "style": "Bold",
+      "version": "Version 1.300;PS 1;hotconv 1.0.81;makeotf.lib2.5.63406 DEVELOPMENT",
+      "fc_scan": "FandolSong|Bold|FandolSong Bold|FandolSong-Bold|85196",
+      "bytes": 5777588,
+      "sha256": "ffa76a70e128947a4dd22151d5ee829b23e24ce3cb6fe8ad49891cd1c2d9e9b9",
+      "license": "GPL-3.0-or-later WITH GPL-font-exception",
+      "license_short": "GPL-3.0-or-later + 字体嵌入例外",
+      "redistributable_with_project": false,
+      "redistribution_note": "同 Fandol 系列：仅本地下载/嵌入 PDF，不再分发字体文件。",
+      "slot_roles": [
+        "small_biaosong_fallback"
+      ],
+      "upstream": {
+        "type": "ctan",
+        "package": "fandol",
+        "version": "1.300 (2015-07-18)",
+        "archive": "fandol.zip",
+        "archive_sha256": "9278f01b417ded5766d98c3937192a1a6a2c73a5e94a3493fdfc932b2a55005a"
+      },
+      "outline_format": "CFF (CID-keyed OpenType OTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 10378,
+      "fsType": 8,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": true,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 7942,
+          "total": 20902,
+          "pct": 38.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 4,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 10286
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 500,
+        "latin_A": 755,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "FandolSong-Regular.otf": {
+      "file": "gbt9704/fonts/FandolSong-Regular.otf",
+      "family": "FandolSong",
+      "family_name_id1": "FandolSong",
+      "postscript": "FandolSong-Regular",
+      "style": "Regular",
+      "version": "Version 1.300;PS 1;hotconv 1.0.81;makeotf.lib2.5.63406 DEVELOPMENT",
+      "fc_scan": "FandolSong|Regular|FandolSong-Regular,FandolSong|FandolSong-Regular|85196",
+      "bytes": 4947904,
+      "sha256": "a3820003227d4abe31fe28b493200d94a849ccfd078b50a019264f70353020b0",
+      "license": "GPL-3.0-or-later WITH GPL-font-exception",
+      "license_short": "GPL-3.0-or-later + 字体嵌入例外",
+      "redistributable_with_project": false,
+      "redistribution_note": "同 Fandol 系列：仅本地下载/嵌入 PDF，不再分发字体文件。",
+      "slot_roles": [
+        "song_fallback"
+      ],
+      "upstream": {
+        "type": "ctan",
+        "package": "fandol",
+        "version": "1.300 (2015-07-18)",
+        "archive": "fandol.zip",
+        "archive_sha256": "9278f01b417ded5766d98c3937192a1a6a2c73a5e94a3493fdfc932b2a55005a"
+      },
+      "outline_format": "CFF (CID-keyed OpenType OTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 10379,
+      "fsType": 8,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": true,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 7943,
+          "total": 20902,
+          "pct": 38.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 4,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 10287
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 500,
+        "latin_A": 750,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "LXGWWenKai-Regular.ttf": {
+      "file": "gbt9704/fonts/LXGWWenKai-Regular.ttf",
+      "family": "LXGW WenKai",
+      "family_name_id1": "LXGW WenKai",
+      "postscript": "LXGWWenKai-Regular",
+      "style": "Regular",
+      "version": "Version 1.511; March 25, 2025",
+      "fc_scan": "LXGW WenKai,霞鹜文楷|Regular|LXGW WenKai|LXGWWenKai-Regular|99025",
+      "bytes": 19309968,
+      "sha256": "be1d5ee371b25f23ca613c3142d6293328db6253ef0b0c09857e9f30657514a8",
+      "license": "OFL-1.1",
+      "license_short": "SIL OFL 1.1（保留字体名：霞鹜 / LXGW）",
+      "redistributable_with_project": true,
+      "redistribution_note": "OFL 1.1，允许随软件分发与嵌入；修改版不得使用保留字体名“霞鹜 / LXGW”。",
+      "slot_roles": [
+        "kaiti"
+      ],
+      "upstream": {
+        "type": "debian-deb",
+        "package": "fonts-lxgw-wenkai",
+        "version": "1.511+repack-1 (上游 LXGW WenKai 1.511, 2025-03-25)",
+        "archive": "fonts-lxgw-wenkai_1.511+repack-1_all.deb",
+        "archive_sha256": "5a4fe76b63927f01129ec8e0be48f511e4ca6b430188e7555982eb0b60d9236b",
+        "urls": [
+          "https://mirrors.sustech.edu.cn/debian/pool/main/f/fonts-lxgw-wenkai/fonts-lxgw-wenkai_1.511+repack-1_all.deb"
+        ]
+      },
+      "outline_format": "TrueType glyf (TTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 37137,
+      "fsType": 0,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": false,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 20902,
+          "total": 20902,
+          "pct": 100.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 22,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 36752
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 600,
+        "latin_A": 690,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "NotoSansCJKsc-Regular.otf": {
+      "file": "gbt9704/fonts/NotoSansCJKsc-Regular.otf",
+      "family": "Noto Sans CJK SC",
+      "family_name_id1": "Noto Sans CJK SC",
+      "postscript": "NotoSansCJKsc-Regular",
+      "style": "Regular",
+      "version": "Version 2.004;hotconv 1.0.118;makeotfexe 2.5.65603",
+      "fc_scan": "Noto Sans CJK SC|Regular|Noto Sans CJK SC|NotoSansCJKsc-Regular|131334",
+      "bytes": 16437340,
+      "sha256": "fb3b8d574150df2fb21d13554d20aae3dc316062e24d34fe3d1ae136d7b4f71f",
+      "license": "OFL-1.1",
+      "license_short": "SIL OFL 1.1",
+      "redistributable_with_project": true,
+      "redistribution_note": "OFL 1.1，允许随软件分发与嵌入；无保留字体名限制。",
+      "slot_roles": [
+        "heiti"
+      ],
+      "upstream": {
+        "type": "debian-deb",
+        "package": "fonts-noto-cjk",
+        "version": "20240730+repack1-1 (上游 Noto Sans CJK 2.004)",
+        "archive": "fonts-noto-cjk_20240730+repack1-1_all.deb",
+        "archive_sha256": "f5dc28a754e17327d99f0a612134d92c8dd6187314ae967cb77f25df60860139",
+        "derivation": "从 Noto Sans CJK Regular.ttc 中拆出 Noto Sans CJK SC face（fontTools，recalcTimestamp=False，字节确定）",
+        "urls": [
+          "https://mirrors.sustech.edu.cn/debian/pool/main/f/fonts-noto-cjk/fonts-noto-cjk_20240730+repack1-1_all.deb"
+        ]
+      },
+      "outline_format": "CFF (CID-keyed OpenType OTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 65535,
+      "fsType": 0,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": false,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 20902,
+          "total": 20902,
+          "pct": 100.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 20,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 44810
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 555,
+        "latin_A": 608,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "NotoSerifCJKsc-Bold.otf": {
+      "file": "gbt9704/fonts/NotoSerifCJKsc-Bold.otf",
+      "family": "Noto Serif CJK SC",
+      "family_name_id1": "Noto Serif CJK SC",
+      "postscript": "NotoSerifCJKsc-Bold",
+      "style": "Bold",
+      "version": "Version 2.003;hotconv 1.1.1;makeotfexe 2.6.0",
+      "fc_scan": "Noto Serif CJK SC|Bold|Noto Serif CJK SC Bold|NotoSerifCJKsc-Bold|131268",
+      "bytes": 25521436,
+      "sha256": "5dd3f1eefb820a5c98e6062afee72dc7a2edbed4b1fa55998b672142363554c9",
+      "license": "OFL-1.1",
+      "license_short": "SIL OFL 1.1",
+      "redistributable_with_project": true,
+      "redistribution_note": "OFL 1.1，允许随软件分发与嵌入。",
+      "slot_roles": [
+        "title",
+        "small_biaosong",
+        "issuer_mark"
+      ],
+      "upstream": {
+        "type": "debian-deb",
+        "package": "fonts-noto-cjk",
+        "version": "20240730+repack1-1 (上游 Noto Serif CJK 2.003)",
+        "archive": "fonts-noto-cjk_20240730+repack1-1_all.deb",
+        "archive_sha256": "f5dc28a754e17327d99f0a612134d92c8dd6187314ae967cb77f25df60860139",
+        "derivation": "从 Noto Serif CJK Bold.ttc 中拆出 Noto Serif CJK SC Bold face（fontTools，recalcTimestamp=False，字节确定）",
+        "urls": [
+          "https://mirrors.sustech.edu.cn/debian/pool/main/f/fonts-noto-cjk/fonts-noto-cjk_20240730+repack1-1_all.deb"
+        ]
+      },
+      "outline_format": "CFF (CID-keyed OpenType OTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 65535,
+      "fsType": 0,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": false,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 20902,
+          "total": 20902,
+          "pct": 100.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 21,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 44777
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 593,
+        "latin_A": 746,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "NotoSerifCJKsc-Regular.otf": {
+      "file": "gbt9704/fonts/NotoSerifCJKsc-Regular.otf",
+      "family": "Noto Serif CJK SC",
+      "family_name_id1": "Noto Serif CJK SC",
+      "postscript": "NotoSerifCJKsc-Regular",
+      "style": "Regular",
+      "version": "Version 2.003;hotconv 1.1.1;makeotfexe 2.6.0",
+      "fc_scan": "Noto Serif CJK SC|Regular|Noto Serif CJK SC|NotoSerifCJKsc-Regular|131268",
+      "bytes": 24543056,
+      "sha256": "3b57a5d6ed1513825c59eae34b0cd97c262d0f08ad8b35b9720ba4dd618b212f",
+      "license": "OFL-1.1",
+      "license_short": "SIL OFL 1.1",
+      "redistributable_with_project": true,
+      "redistribution_note": "OFL 1.1，允许随软件分发与嵌入。",
+      "slot_roles": [
+        "song",
+        "page_number",
+        "missing_glyph_fallback"
+      ],
+      "upstream": {
+        "type": "debian-deb",
+        "package": "fonts-noto-cjk",
+        "version": "20240730+repack1-1 (上游 Noto Serif CJK 2.003)",
+        "archive": "fonts-noto-cjk_20240730+repack1-1_all.deb",
+        "archive_sha256": "f5dc28a754e17327d99f0a612134d92c8dd6187314ae967cb77f25df60860139",
+        "derivation": "从 Noto Serif CJK Regular.ttc 中拆出 Noto Serif CJK SC face（fontTools，recalcTimestamp=False，字节确定）",
+        "urls": [
+          "https://mirrors.sustech.edu.cn/debian/pool/main/f/fonts-noto-cjk/fonts-noto-cjk_20240730+repack1-1_all.deb"
+        ]
+      },
+      "outline_format": "CFF (CID-keyed OpenType OTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 65535,
+      "fsType": 0,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": false,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 20902,
+          "total": 20902,
+          "pct": 100.0
+        },
+        "gb18030_rare_sample": {
+          "hit": 21,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "total_cmap_codepoints": 44777
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 557,
+        "latin_A": 718,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    },
+    "ZhuqueFangsong-Regular.ttf": {
+      "file": "gbt9704/fonts/ZhuqueFangsong-Regular.ttf",
+      "family": "Zhuque Fangsong (technical preview)",
+      "family_name_id1": "Zhuque Fangsong (technical preview)",
+      "postscript": "ZhuqueFangsong-Regular",
+      "style": "Regular",
+      "version": "Version 0.212",
+      "fc_scan": "Zhuque Fangsong (technical preview),朱雀仿宋（预览测试版）|Regular|Zhuque Fangsong (technical preview) Regular|ZhuqueFangsong-Regular|13894",
+      "bytes": 8824084,
+      "sha256": "558c62730844fe54ba220146ed62f859d4e2880188d92d985f8921c6e3743bc4",
+      "license": "OFL-1.1",
+      "license_short": "SIL OFL 1.1",
+      "redistributable_with_project": true,
+      "redistribution_note": "OFL 1.1，允许随软件分发与嵌入；当前为技术预览版（v0.x），字形与字符集可能变动。",
+      "slot_roles": [
+        "body_fangsong_ofl_alternative"
+      ],
+      "upstream": {
+        "type": "github-release",
+        "package": "TrionesType/zhuque",
+        "version": "0.212 technical preview (2025-07-07)",
+        "archive": "ZhuqueFangsong-v0.212.zip",
+        "archive_sha256": "bb8b661a7643d2296a72d9d10530a00949419c4e527fb61783f73c2ba1a8c062",
+        "urls": [
+          "https://atomgit.com/TrionesType/zhuque/releases/download/v0.212/ZhuqueFangsong-v0.212.zip",
+          "https://github.com/TrionesType/zhuque/releases/download/v0.212/ZhuqueFangsong-v0.212.zip"
+        ]
+      },
+      "outline_format": "TrueType glyf (TTF)",
+      "is_variable": false,
+      "units_per_em": 1000,
+      "num_glyphs": 13805,
+      "fsType": 8,
+      "fsType_bits": {
+        "restricted": false,
+        "preview_print": false,
+        "editable": true,
+        "no_subsetting": false,
+        "bitmap_only": false
+      },
+      "embeddable": true,
+      "coverage": {
+        "gb2312_hanzi": {
+          "hit": 6763,
+          "total": 6763,
+          "pct": 100.0
+        },
+        "gbk_hanzi": {
+          "hit": 11006,
+          "total": 20902,
+          "pct": 52.66
+        },
+        "gb18030_rare_sample": {
+          "hit": 12,
+          "total": 32
+        },
+        "punctuation_sample": {
+          "hit": 31,
+          "total": 31
+        },
+        "ascii_digits": {
+          "hit": 10,
+          "total": 10
+        },
+        "fullwidth_digits": {
+          "hit": 0,
+          "total": 10
+        },
+        "total_cmap_codepoints": 12882
+      },
+      "advance_widths_1000em": {
+        "yi_一": 1000,
+        "zhong_中": 1000,
+        "guo_国": 1000,
+        "zi_字": 1000,
+        "digit_0": 533,
+        "latin_A": 584,
+        "comma_，": 1000,
+        "ideographic_space": 1000,
+        "distinct_fullwidth_hanzi_advances": [
+          1000
+        ]
+      }
+    }
+  },
+  "reproduce": {
+    "download": "bash gbt9704/scripts/fetch-fonts.sh",
+    "verify_only": "bash gbt9704/scripts/fetch-fonts.sh --check",
+    "measured_with": "fc-scan 2.x + fontTools 4.68.0 + Python 3.15"
+  }
+}

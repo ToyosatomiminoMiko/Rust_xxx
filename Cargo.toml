@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "gbt9704",
     "graphics_utils",
     "sql_demo",
     "typist"
