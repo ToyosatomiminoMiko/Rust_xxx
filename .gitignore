@@ -28,3 +28,9 @@ gbt9704/fonts/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# 阶段 2 构建用的本地 cargo 家目录(沙箱内 ~/.cargo 只读)
+.cargo-home/
+
+# 阶段 2 渲染产物(本地目视检查用)
+gbt9704/out/

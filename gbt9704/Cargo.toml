@@ -5,3 +5,6 @@ edition = "2024"
 description = "GB/T 9704-2012 党政机关公文格式 -> Akoma Ntoso 生成器"
 
 [dependencies]
+# 阶段 2 渲染: 2D 光栅化 (Path 填充/描边/PNG 编解码) + OpenType 字形轮廓与度量.
+tiny-skia = { version = "0.11.4", default-features = false, features = ["std", "png-format"] }
+ttf-parser = "0.25"

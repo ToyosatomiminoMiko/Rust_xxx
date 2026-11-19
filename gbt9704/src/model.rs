@@ -281,11 +281,21 @@ pub struct DocNumber {
     pub agency: String,
     pub year: u16,
     pub serial: u32,
+    /// 发文字号的显式呈现文本; 为空时按标准通用写法生成.
+    ///
+    /// 为什么需要覆盖: 标准只给"机关代字〔年〕序号号"一种写法, 部分机关用
+    /// "机关名称〔年〕第001号"(命令式编号), 渲染层需要按输入原文排版.
+    pub text: Option<String>,
 }
 
 impl DocNumber {
-    /// 标准呈现形式(六角括号、年份全称、顺序号不编虚位、加"号").
+    /// 标准呈现形式(六角括号、年份全称、顺序号不编虚位、加"号"), 可被 `text` 覆盖.
     pub fn display(&self) -> String {
+        if let Some(text) = &self.text
+            && !text.trim().is_empty()
+        {
+            return text.clone();
+        }
         format!("{}〔{}〕{}号", self.agency, self.year, self.serial)
     }
 }
@@ -410,6 +420,8 @@ pub struct Seal {
     pub signer: Option<String>,
     /// 签发人职务(签名章情形, 7.3.5.3).
     pub title: Option<String>,
+    /// 印章编号(圆形公章下方的阿拉伯数字); 为空时渲染层不画编号.
+    pub number: Option<String>,
 }
 
 /// 发文机关署名、成文日期和印章(7.3.5).
@@ -421,6 +433,11 @@ pub struct Signature {
     pub issuer_names: Vec<String>,
     pub mode: SealMode,
     pub seals: Vec<Seal>,
+    /// 成文日期的显式呈现文本; 为空时由 `date` 转成"2026年11月9日".
+    ///
+    /// 为什么需要覆盖: 式样图与不少机关习惯用汉字数字("二〇二六年十一月九日"),
+    /// 标准 7.3.5.4 要求阿拉伯数字, 渲染层按输入原文排.
+    pub date_text: Option<String>,
 }
 
 /// 附件(7.3.7): 另面编排, 在版记之前.
@@ -1100,10 +1117,12 @@ fn parse_doc_number(value: &Value) -> Result<DocNumber, String> {
         return Err(format!("doc_number.year 超出范围: {year}"));
     }
     let serial = required_u32(object, "serial", "doc_number")?;
+    let text = optional_str(object, "text", "doc_number")?.map(str::to_string);
     Ok(DocNumber {
         agency,
         year: year as u16,
         serial,
+        text,
     })
 }
 
@@ -1202,17 +1221,20 @@ fn parse_signature(value: &Value) -> Result<Signature, String> {
                         issuer: optional_str(object, "issuer", &path)?.map(str::to_string),
                         signer: optional_str(object, "signer", &path)?.map(str::to_string),
                         title: optional_str(object, "title", &path)?.map(str::to_string),
+                        number: optional_str(object, "number", &path)?.map(str::to_string),
                     })
                 })
                 .collect::<Result<Vec<_>, String>>()?
         }
         None => Vec::new(),
     };
+    let date_text = optional_str(object, "date_text", "signature")?.map(str::to_string);
     Ok(Signature {
         date,
         issuer_names,
         mode,
         seals,
+        date_text,
     })
 }
 

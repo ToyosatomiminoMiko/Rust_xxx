@@ -10,11 +10,12 @@
 | --- | --- | --- |
 | 0 | 找到最新 Akoma Ntoso 标准；找到标准要求的字体；schema/字体落地并校验 | ✅ 完成 (见 `docs/`, `schemas/`, `fonts-manifest.json`) |
 | 1 | Akoma Ntoso XML 生成 (输入 JSON → AKN 3.1，含全量标准项映射) | ✅ 完成 (本 crate) |
-| 2 | 导出 PDF (排版引擎 + 字体嵌入 + 印章/页码/版记) | ⏳ 未开始 |
+| 2 | 排版渲染 (字体/28 字网格折行/分页 + 版头/标题/正文/落款/印章/页码/版记 → PNG) | 🚧 通用格式可用 (附件、信函/命令/纪要特定版面、PDF 未做) |
 
 ## 技术路线
 
-- **零第三方依赖**：只用 Rust 标准库（JSON 解析/XML 序列化均自实现），离线可构建；
+- **阶段 0/1 零第三方依赖**：JSON 解析/XML 序列化都是自实现；到阶段 2 渲染才引入两个纯 Rust
+  crate：`ttf-parser`(OpenType 字形轮廓/度量) + `tiny-skia`(2D 光栅化/PNG 编码)，没有排版引擎或浏览器依赖；
 - **标准即数据**：`src/gbt9704/` 把标准条款变成 Rust 常量/注册表，版式与映射都从同一份数据生成；
 - **AKN 是唯一中间状态**：不再维护第二份私有格式；AKN 里既有语义，也有可重建版式的完整参数；
 - **可校验**：生成结果用 OASIS 官方 XSD 离线校验（`xmllint`），并有 golden/映射一致性测试。
@@ -62,14 +63,25 @@ cargo run -p gbt9704 -- mapping
 cargo run -p gbt9704 -- elements
 cargo run -p gbt9704 -- geometry
 cargo run -p gbt9704 -- fonts
+
+# 5. 渲染为 PNG（阶段 2；字体先跑 scripts/fetch-fonts.sh）
+#    多页时输出 <stem>-p1.png、<stem>-p2.png…，单页时直接用 -o 的文件名
+cargo run -p gbt9704 -- render -i examples/example-honor-court-notice.json -o honor.png --dpi 200
+#    不分页输出一张连续长页（适合截图/目视检查）
+cargo run -p gbt9704 -- render -i examples/example-honor-court-notice.json -o honor-long.png --single
 ```
+
+`render` 的字体查找顺序：`--fonts DIR` → 环境变量 `GBT9704_FONTS` → `./fonts` → crate 根 `fonts/`。
+字体槽位与开源替代见 `docs/fonts.md`（标题/版头 小标宋≈Noto Serif CJK Bold、正文 仿宋≈FandolFang、
+层次标题 黑体≈Noto Sans CJK、二级标题 楷体≈霞鹜文楷）。
 
 `build --ns 3.1` 可切到 OASIS 命名空间文档口径（`akn/3.1`），用本地派生的
 `akomantoso31-adapted.xsd` 校验，见下文“命名空间说明”。
 
 ## 输入 JSON
 
-完整示例见 `examples/example-notice.json`（由 `gbt9704 example` 生成）。字段：
+完整示例见 `examples/example-notice.json`（由 `gbt9704 example` 生成）；
+`examples/example-honor-court-notice.json` 是一份带印章渲染效果的多页样例。字段：
 
 | 字段 | 必填 | 说明 |
 | --- | --- | --- |
@@ -78,7 +90,7 @@ cargo run -p gbt9704 -- fonts
 | `issuer.names` | ✅ | 发文机关全称/规范化简称；联合行文按顺序排列，首个为主办机关 |
 | `issuer.mark` | | 发文机关标志文本；缺省按格式推导（通用加“文件”，信函用机关名，命令加“命令”，纪要加“纪要”） |
 | `title` | ✅ | 标题 |
-| `doc_number` | | `{agency, year, serial}`，渲染为 `国办发〔2012〕1号` |
+| `doc_number` | | `{agency, year, serial}`，渲染为 `国办发〔2012〕1号`；可选 `text` 直接覆盖呈现文本（如“×××〔2026〕第001号”） |
 | `order_number` | | 命令(令)的令号；缺省用 `doc_number.serial` 生成“第 N 号” |
 | `copy_number` | | 份号（建议 6 位数字） |
 | `secrecy` | | `{level: 绝密/机密/秘密, term: "1年"}`，渲染为“机密★1年” |
@@ -88,7 +100,7 @@ cargo run -p gbt9704 -- fonts
 | `addressees_in_record` | | 主送机关是否移至版记（首页放不下时） |
 | `body` | ✅ | 段落数组；普通段 `{text}`，层次标题 `{level:1..4, num:"一、", text:"..."}` |
 | `attachment_notes` | | 附件说明 `[{serial, name}]` |
-| `signature` | ✅ | `{date:"YYYY-MM-DD", mode: with_seal/without_seal/signature_seal, issuer_names, seals:[{image, issuer, signer, title}]}` |
+| `signature` | ✅ | `{date:"YYYY-MM-DD", mode: with_seal/without_seal/signature_seal, issuer_names, seals:[{image, issuer, signer, title, number}]}`；可选 `date_text` 覆盖成文日期文本（如“二〇二六年十一月九日”） |
 | `note` | | 附注，如“（此件公开发布）” |
 | `attachments` | | 附件实体 `[{serial, title, paragraphs, standalone}]` |
 | `cc` | | 抄送机关 |
@@ -173,14 +185,25 @@ cargo clippy -p gbt9704        # 可选
 - schema 校验依赖 `xmllint`（libxml2）；没有时相关测试打印提示并跳过；
 - golden 基准：`tests/golden/example.akn.xml`；重新生成命令见文件头注释。
 
-## 阶段 2（未开始）
+## 阶段 2（渲染，通用格式已可用）
 
-- 从 AKN 读回数据（解析 `presentation`/`proprietary` 扩展）→ 版面计算（网格步进用 156/28 mm ≈ 15.7929 pt，
-  不是名义 16 pt；2 号/3 号/4 号字号、“空一行”按 30 pt、标题梯形/菱形、印章与日期的相对位置）→ PDF 输出；
-- 字体嵌入（开源替代/商业字体自备）、红色油墨 CMYK、印章图片；
-- 页码：单双页、空白页/版记页不编码、附件连续编码；
-- 横排表格、信函/命令/纪要版式；
-- 渲染层只允许使用 AKN 中已有的信息；需要新参数时先扩展 `presentation` 并更新映射表。
+已实现（`src/render/`，输入直接用阶段 1 的 `GbDocument`，暂未绕回 AKN 读回）：
+
+- 版面：A4 210×297、天头 37/订口 28、版心 156×225、22 行 × 28 字；字宽按 156/28 mm 紧缩
+  （≈0.987 倍名义字号），行距 225/22 mm；
+- 版头：份号/密级★期限/紧急程度（3 号黑体）、发文机关标志（红色小标宋，名称与“文件”分行、
+  字号自适应版心宽，式样图里“文件”比名称大）、发文字号（居中/上行文左空一字+签发人）、
+  红色分隔线（发文字号下 4 mm、0.6 mm 粗）；
+- 主体：2 号小标宋标题（禁则折行 + 两行时按“词意完整/梯形”挑断点）、主送机关、3 号仿宋正文
+  （首行缩进 2 字、回行顶格、禁则/标点悬挂、两端对齐）、附注、发文机关署名、
+  成文日期（右空四字）、红色圆形印章（外圆 + 环形机关名称 + 五角星 + 编号，半透明压盖署名与日期）；
+- 分页：落款/印章若在末页放不下会把末尾几行挪到新页，保证印章不越出版心、末页有正文；
+- 版记（抄送/印发机关日期，首末粗线 + 中间细线）与页码（4 号宋体“— N —”，单页右/双页左，版心下 7 mm）；
+- 输出 PNG（tiny-skia 自带的 png 编码），`--single` 输出不分页的连续长页。
+
+未做/待补：附件（另面编排、附件说明）、横排表格、信函/命令/纪要三种特定格式版面、
+直接 PDF 输出与 CMYK 油墨、从 AKN 读回版式参数（目前渲染层直接吃阶段 1 的模型，`presentation`
+里的参数已足够重建，但尚未接线）。
 
 ## 来源
 

@@ -2,13 +2,15 @@
 //!
 //! 阶段 0: 标准/字体调研与 schema vendoring(见 docs/);
 //! 阶段 1: 从 JSON 输入生成 AKN 3.1 XML(本 crate);
-//! 阶段 2: PDF 导出(后续).
+//! 阶段 2: 排版渲染为公文页 PNG(版头/标题/正文/落款/印章/页码/版记);
+//! 阶段 3(后续): 直接导出 PDF 并在 AKN 中承载完整版式参数.
 //!
 //! 模块:
 //! - `gbt9704`: 标准的机器可读模型(版面几何/字体/要素注册表);
 //! - `model`: 公文输入模型与 JSON 读写;
 //! - `akn`: AKN 3.1 序列化;
 //! - `mapping`: 标准要素 → AKN 映射表与文档生成;
+//! - `render`: 阶段 2 排版与 PNG 光栅化(字体/折行/分页/印章);
 //! - `json`: 零依赖 JSON 解析/序列化;
 //! - `cli`: 命令行入口.
 
@@ -18,3 +20,4 @@ pub mod gbt9704;
 pub mod json;
 pub mod mapping;
 pub mod model;
+pub mod render;

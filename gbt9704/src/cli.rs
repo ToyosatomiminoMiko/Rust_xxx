@@ -20,6 +20,11 @@ const HELP: &str = r#"gbt9704 - GB/T 9704-2012 党政机关公文格式 -> Akoma
                                             从 JSON 生成 AKN 3.1 XML (缺省写 stdout)
                                             --ns 3.0(默认): 官方 XSD 命名空间, 可用 akomantoso30.xsd 校验
                                             --ns 3.1: OASIS v2.0 命名空间文档口径, 需 adapted schema
+  gbt9704 render -i FILE [-o FILE] [--dpi N] [--fonts DIR] [--single]
+                                            阶段 2: 渲染为 A4 公文 PNG (缺省 200 dpi, 缺省 out-<页>.png)
+                                            -o 单页时就是该文件, 多页时在扩展名前追加 -pN
+                                            --single: 不分页, 输出一张连续长页(适合截图展示)
+                                            --fonts DIR: 字体目录, 缺省 ./fonts 或 crate 根 fonts/
   gbt9704 validate -i FILE                  解析并校验输入 JSON
   gbt9704 elements [--format md|json] [-o FILE]
                                             列出标准格式要素注册表
@@ -71,6 +76,7 @@ fn dispatch(args: &[String]) -> Result<u8, String> {
             Ok(0)
         }
         "build" => build(&Options::parse(&args[1..])?),
+        "render" => render(&Options::parse(&args[1..])?),
         "validate" => validate(&Options::parse(&args[1..])?),
         "elements" => {
             let options = Options::parse(&args[1..])?;
@@ -140,6 +146,65 @@ fn build(options: &Options) -> Result<u8, String> {
     }
 }
 
+/// 阶段 2: 渲染 PNG.
+fn render(options: &Options) -> Result<u8, String> {
+    let input = options.input.as_deref().ok_or("render 需要 -i FILE")?;
+    let text = fs::read_to_string(input).map_err(|error| format!("读取 {input} 失败: {error}"))?;
+    let value = json::parse(&text).map_err(|error| format!("{input}: {error}"))?;
+    let document = GbDocument::from_json(&value).map_err(|error| format!("{input}: {error}"))?;
+    for diagnostic in &document.validate() {
+        if diagnostic.severity == crate::model::Severity::Error {
+            return Err(format!("{diagnostic}"));
+        }
+        eprintln!("{diagnostic}");
+    }
+    let render_options = crate::render::RenderOptions {
+        dpi: options.dpi.unwrap_or(200.0),
+        fonts_dir: options.fonts.as_deref().map(std::path::PathBuf::from),
+        continuous: options.continuous,
+    };
+    let pages = crate::render::render(&document, &render_options)?;
+    let base = options
+        .output
+        .clone()
+        .unwrap_or_else(|| default_render_output(input));
+    for page in &pages {
+        let path = page_output_path(&base, pages.len(), page.number);
+        fs::write(&path, &page.png)
+            .map_err(|error| format!("写入 {} 失败: {error}", path.display()))?;
+        eprintln!(
+            "已写入 {}: 第 {}/{} 页 {}×{} px @ {:.0} dpi",
+            path.display(),
+            page.number,
+            pages.len(),
+            page.width_px,
+            page.height_px,
+            render_options.dpi
+        );
+    }
+    Ok(0)
+}
+
+/// 缺省输出名: 输入文件的词干 + .png.
+fn default_render_output(input: &str) -> String {
+    let stem = std::path::Path::new(input)
+        .file_stem()
+        .and_then(|stem| stem.to_str())
+        .unwrap_or("document");
+    format!("{stem}.png")
+}
+
+/// 多页时在扩展名前插入 `-pN`, 单页时就是 base 本身.
+fn page_output_path(base: &str, page_count: usize, page: u32) -> std::path::PathBuf {
+    let path = std::path::Path::new(base);
+    if page_count <= 1 {
+        return path.to_path_buf();
+    }
+    let stem = path.file_stem().and_then(|stem| stem.to_str()).unwrap_or("page");
+    let extension = path.extension().and_then(|ext| ext.to_str()).unwrap_or("png");
+    path.with_file_name(format!("{stem}-p{page}.{extension}"))
+}
+
 fn validate(options: &Options) -> Result<u8, String> {
     let input = options.input.as_deref().ok_or("validate 需要 -i FILE")?;
     let text = fs::read_to_string(input).map_err(|error| format!("读取 {input} 失败: {error}"))?;
@@ -169,6 +234,12 @@ struct Options {
     output: Option<String>,
     format: Option<String>,
     ns: Option<String>,
+    /// 渲染分辨率(每英寸像素).
+    dpi: Option<f64>,
+    /// 渲染字体目录.
+    fonts: Option<String>,
+    /// 连续长页模式.
+    continuous: bool,
 }
 
 impl Options {
@@ -193,6 +264,20 @@ impl Options {
                     index += 1;
                     options.ns = Some(args.get(index).ok_or("选项 --ns 缺少参数")?.clone());
                 }
+                "--dpi" => {
+                    index += 1;
+                    let value = args.get(index).ok_or("选项 --dpi 缺少参数")?;
+                    options.dpi = Some(
+                        value
+                            .parse()
+                            .map_err(|_| format!("--dpi 需要数字, 实际为 {value:?}"))?,
+                    );
+                }
+                "--fonts" => {
+                    index += 1;
+                    options.fonts = Some(args.get(index).ok_or("选项 --fonts 缺少参数")?.clone());
+                }
+                "--single" | "--continuous" => options.continuous = true,
                 other => return Err(format!("未知选项 {other:?}")),
             }
             index += 1;
